@@ -1,5 +1,5 @@
 const express = require('express');
-var router = express.Router();
+var router = express();
 
 
 
@@ -64,9 +64,9 @@ var router = express.Router();
 
 
 router.get('/', (req, res) => {
-    res.send(200)
+    res.sendStatus(201)
 })
 
 
 
-exports.template = router
+exports.main = router
