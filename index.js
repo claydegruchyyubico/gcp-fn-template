@@ -1,5 +1,5 @@
 const express = require('express');
-var router = express();
+var app = express();
 
 
 
@@ -35,7 +35,7 @@ var router = express();
 //         .catch(e=>res.sendStatus(e))
 // }
 
-// router.use(auth)
+// app.use(auth)
 //############################################################  simple auth  middleware ############################################################
 
 
@@ -63,10 +63,20 @@ var router = express();
 //############################################################  async map multiple requests ############################################################
 
 
-router.get('/', (req, res) => {
+//############################################################  routing  ############################################################
+//logging middleware
+app.use((req, res, next) => {
+    logSumo('info', `[${req.method}] - ` + req.protocol + '://' + req.get('host') + req.originalUrl)
+    next()
+})
+//############################################################  routing  ############################################################
+
+
+
+app.get('/', (req, res) => {
     res.sendStatus(201)
 })
 
 
 
-exports.main = router
+exports.main = app
