@@ -1,0 +1,37 @@
+name: Package and Deploy Cloud Functions
+
+on:
+  push:
+    branches:
+    - master
+
+env:
+  PROJECT_ID: TEMPLATE
+  FUNCTION_NAME: TEMPLATE
+
+jobs:
+  setup-package-deploy:
+    name:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup gcloud
+        uses: GoogleCloudPlatform/github-actions@0.1.2
+        with:
+          service_account_email: TEMPLATE@TEMPLATE.iam.gserviceaccount.com
+          service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+
+      - name: Configure gcloud
+        run: |
+          gcloud config set project $PROJECT_ID
+
+      - name: Deploy
+        run: |
+          gcloud functions deploy ${FUNCTION_NAME} \
+            --entry-point template \
+            --trigger-http \
+            --runtime nodejs10 \
+            --set-env-vars=accessToken=${{secrets.ACCESSTOKEN}},sumoEndPoint=${{ secrets.sumoEndPoint }},YOUR_ZENDESK_API_TOKEN=${{ secrets.YOUR_ZENDESK_API_TOKEN }},YOUR_ZENDESK_EMAIL=${{ secrets.YOUR_ZENDESK_EMAIL }},YOUR_ZENDESK_URL=${{ secrets.YOUR_ZENDESK_URL }}
