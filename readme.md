@@ -17,3 +17,14 @@ All these are examples of optional vars
 - `YOUR_ZENDESK_URL`
 - `GITHUBAUTH`
 Any push to master will fire an update.
+
+
+## Running
+- Clone.
+- `npm i --save` in the closed directory.
+- Create a `start.sh` file containing:
+```
+env YOUR_ZENDESK_URL='<a YOUR_ZENDESK_URL>'  \
+YOUR_ZENDESK_EMAIL='<a YOUR_ZENDESK_EMAIL>'  \
+YOUR_ZENDESK_API_TOKEN='<a YOUR_ZENDESK_API_TOKEN>'  \
+sumoEndPoint='<a sumoEndPoint>'  nodemon --exec npm start
