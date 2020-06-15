@@ -5,33 +5,41 @@ on:
     branches:
     - master
 
-env:
-  PROJECT_ID: TEMPLATE
-  FUNCTION_NAME: TEMPLATE
 
 jobs:
   setup-package-deploy:
-    name:
+    name: "Machine"
     runs-on: ubuntu-latest
 
     steps:
+        #get the repo
       - name: Checkout
         uses: actions/checkout@v1
 
+        # setup gcloud
       - name: Setup gcloud
         uses: GoogleCloudPlatform/github-actions@0.1.2
-        with:
-          service_account_email: TEMPLATE@TEMPLATE.iam.gserviceaccount.com
-          service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
 
+        #attempt to auth using the service account via GOOGLE_APPLICATION_CREDENTIALS
+        #GOOGLE_APPLICATION_CREDENTIALS is the service account .json converted to base64
+        #this decodes from b64 into home 
+      - name: Activate Service Account 
+        env: 
+          GCLOUD_AUTH: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        run: |
+          echo "$GCLOUD_AUTH" | base64 --decode > "$HOME"/gcloud.json
+          gcloud auth activate-service-account --key-file=$HOME/gcloud.json $*
+
+        #set the project ID
       - name: Configure gcloud
+        env: 
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
         run: |
           gcloud config set project $PROJECT_ID
 
-      - name: Deploy
+        #finally deploy the thing
+      - name: deploy function 
         run: |
-          gcloud functions deploy ${FUNCTION_NAME} \
-            --entry-point template \
-            --trigger-http \
-            --runtime nodejs10 \
-            --set-env-vars=accessToken=${{secrets.ACCESSTOKEN}},sumoEndPoint=${{ secrets.sumoEndPoint }},YOUR_ZENDESK_API_TOKEN=${{ secrets.YOUR_ZENDESK_API_TOKEN }},YOUR_ZENDESK_EMAIL=${{ secrets.YOUR_ZENDESK_EMAIL }},YOUR_ZENDESK_URL=${{ secrets.YOUR_ZENDESK_URL }}
+          gcloud functions deploy ${{secrets.FUNCTION_NAME}} --entry-point template --trigger-http --runtime nodejs10 --set-env-vars=accessToken=${{secrets.ACCESSTOKEN}},sumoEndPoint=${{ secrets.sumoEndPoint }},YOUR_ZENDESK_API_TOKEN=${{ secrets.YOUR_ZENDESK_API_TOKEN }},YOUR_ZENDESK_EMAIL=${{ secrets.YOUR_ZENDESK_EMAIL }},YOUR_ZENDESK_URL=${{ secrets.YOUR_ZENDESK_URL }}
+
+
