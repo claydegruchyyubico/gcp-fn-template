@@ -1,8 +1,9 @@
 iparam_test_data.json
 package-lock.json
 env-secrets.yaml
+secrets.yaml
 
-# start.sh
+start.sh
 creds.js
 *.pyc
 app.yaml

@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec functions-framework --target=template  --delay 1",
-    "install": "npm i --save"
+    "install": "npm run makesecret;npm run makestart",
+    "makesecret": "printf  'repo: my-test-repo\nsecrets:\n  secret1: hello' > secrets.yaml",
+    "makestart": "printf '' > start.sh\nprintf 'env ' >> start.sh\ncat secrets.yaml | shyaml get-value secrets | sed -e 's/:[^://]/=\"/g;s/$/\"/g;s/ *=/=/g'| tr -s '\n' ' ' >> start.sh\nprintf ' nodemon --exec npm start'>>start.sh"
   },
   "author": "Clay DeGruchy",
   "license": "ISC",
