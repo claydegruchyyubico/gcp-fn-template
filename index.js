@@ -12,7 +12,7 @@ const YOUR_ZENDESK_API_TOKEN = process.env.YOUR_ZENDESK_API_TOKEN
 const sumoEndPoint = process.env.sumoEndPoint
 const accessToken = process.env.ACCESSTOKEN || 'something';
 
-const toolName = 'ss/TEMPLATEUPDATE';
+const toolName = 'ss/gcp-fn-template';
 
 var app = express()
 

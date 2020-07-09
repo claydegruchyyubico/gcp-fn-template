@@ -1,4 +1,4 @@
-## Simple gcp function template
+## gcp-fn-template
 ### Contents
 - Express multiple endpoint function setup
 - Replay attack hardened token auth
