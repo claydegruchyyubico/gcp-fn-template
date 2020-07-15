@@ -9,8 +9,8 @@ const crypto = require('crypto');
 const YOUR_ZENDESK_URL = process.env.YOUR_ZENDESK_URL
 const YOUR_ZENDESK_EMAIL = process.env.YOUR_ZENDESK_EMAIL
 const YOUR_ZENDESK_API_TOKEN = process.env.YOUR_ZENDESK_API_TOKEN
-const sumoEndPoint = process.env.sumoEndPoint
-const accessToken = process.env.ACCESSTOKEN || 'something';
+const SUMOENDPOINT = process.env.SUMOENDPOINT
+const ACCESSTOKEN = process.env.ACCESSTOKEN || 'something';
 
 const toolName = 'ss/gcp-fn-template';
 
@@ -32,7 +32,7 @@ async function validateAuth(suppliedToken) {
     }
 
     return new Promise((resolve, reject) => {
-        if (!safeCompare(accessToken, suppliedToken)) {
+        if (!safeCompare(ACCESSTOKEN, suppliedToken)) {
             reject(403)
         } else {
             resolve('success')
@@ -64,7 +64,7 @@ use on a particualr endppoint
 
 async function logSumo(category, text) {
     console.log("logSumo", category, text)
-    if (!sumoEndPoint || !toolName) {
+    if (!SUMOENDPOINT || !toolName) {
         console.log("aborting logSumo due to config error")
         return
     }
@@ -75,7 +75,7 @@ async function logSumo(category, text) {
         "filename": __filename,
         "timestamp": new Date().toISOString()
     };
-    return fetch(sumoEndPoint, { method: 'POST', body: JSON.stringify(log) })
+    return fetch(SUMOENDPOINT, { method: 'POST', body: JSON.stringify(log) })
         .catch(e => {
             console.error("logginng error", text, JSON.stringify(log), e)
             process.stdout.write('Error logging to SUMO', e)

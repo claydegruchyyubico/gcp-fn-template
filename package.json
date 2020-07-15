@@ -8,7 +8,7 @@
     "start": "nodemon --exec functions-framework --target=template  --delay 1",
     "install": "npm run makesecret;npm run makestart",
     "updatenames": "",
-    "makesecret": "printf  'repo: gcp-fn-template\nsecrets:\n  secret1: hello' > secrets.yaml",
+    "makesecret": "printf  'repo: gcp-fn-template\nsecrets:\n  YOUR_ZENDESK_URL: hello\n  YOUR_ZENDESK_EMAIL: hello\n  YOUR_ZENDESK_API_TOKEN: hello\n  SUMOENDPOINT: hello\n  ACCESSTOKEN: hello' > secrets.yaml",
     "makestart": "printf '' > start.sh\nprintf 'env ' >> start.sh\ncat secrets.yaml | shyaml get-value secrets | sed -e 's/:[^://]/=\"/g;s/$/\"/g;s/ *=/=/g'| tr -s '\n' ' ' >> start.sh\nprintf ' nodemon --exec npm start'>>start.sh"
   },
   "author": "Clay DeGruchy",
@@ -20,7 +20,3 @@
     "node-fetch": "^2.6.0"
   }
 }
-
-
-
-// find . -type f \( -name '*.json' -o -name '*.js' \) -print0 | xargs -0 sed -i "s/gcp-fn-template/$NAME/g"
