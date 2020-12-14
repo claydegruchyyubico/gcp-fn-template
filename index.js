@@ -86,17 +86,34 @@ async function logSumo(category, text) {
 
 //#### ZENDESK STUFF ####
 
-function ZDFetch(url, options = { method: 'get' }) {
+function ZDFetch(url, options = { method: 'get', paginate: false }) {
     console.log(options.method, YOUR_ZENDESK_URL + url, options)
 
     if (!options.headers) options.headers = {}
     options.headers["Authorization"] = 'Basic ' + Buffer.from(YOUR_ZENDESK_EMAIL + "/token:" + YOUR_ZENDESK_API_TOKEN).toString('base64')
+    if ((options.method == 'post' || options.method == 'put') && !options.headers["Content-Type"]) options.headers["Content-Type"] = "application/json"
 
     return fetch(YOUR_ZENDESK_URL + url, options)
-        .then(r => {
-            if (!r.ok) throw r
-            return r.json()
+        .then(async r => {
+            if (!r.ok) throw await r.text();
+            console.log(r.status)
+            return await r.json()
         })
+        .then(r => {
+            if (options.paginate && r.next_page) {
+                var newurl = r.next_page.replace(YOUR_ZENDESK_URL, "")
+                var targetField = Object.keys(r).filter(k => !['count', 'next_page', 'page', 'page_count', 'per_page', 'previous_page', 'sort_by', 'sort_order'].includes(k))[0]
+                console.log("attempting next page", newurl)
+                return ZDFetch(newurl, options)
+                    .then(sr => {
+                        r[targetField] = r[targetField].concat(sr[targetField])
+                        return r
+                    })
+            } else {
+                return r
+            }
+        })
+        .catch(console.error)
 }
 
 
