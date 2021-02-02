@@ -1,4 +1,13 @@
-## gcp-fn-template
+# gcp-fn-template
+This is a placeholder desc for this template.
+
+### Begin autogeneration
+Automatically generated API documentation will be placed in this location. This uses Swagger and Widdershins to auto generate basic docs with no owner input.
+
+The script, `auto-swagger.js` (found in .github/utilities/) runs on each commit.
+
+### End autogeneration
+
 
 
 ### Contents
