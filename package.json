@@ -12,6 +12,9 @@
     "makesecret": "printf  'repo: gcp-fn-template\nsecrets:\n  YOUR_ZENDESK_URL: hello\n  YOUR_ZENDESK_EMAIL: hello\n  YOUR_ZENDESK_API_TOKEN: hello\n  SUMOENDPOINT: hello\n  ACCESSTOKEN: hello' > secrets.yaml",
     "makestart": "printf '' > start.sh\nprintf 'env ' >> start.sh\ncat secrets.yaml | shyaml get-value secrets | sed -e 's/:[^://]/=\"/g;s/$/\"/g;s/ *=/=/g'| tr -s '\n' ' ' >> start.sh\nprintf ' nodemon --exec npm start'>>start.sh"
   },
+    "precommit": {
+    "run": "auto-swagger"
+  },
   "author": "Clay DeGruchy",
   "license": "ISC",
   "dependencies": {
