@@ -28,5 +28,14 @@
     "pre-commit": "^1.2.2",
     "swagger-autogen": "^2.5.9",
     "widdershins": "^4.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/claydegruchyyubico/gcp-fn-template.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/claydegruchyyubico/gcp-fn-template/issues"
+  },
+  "homepage": "https://github.com/claydegruchyyubico/gcp-fn-template#readme"
 }

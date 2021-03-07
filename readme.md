@@ -1,12 +1,50 @@
 # gcp-fn-template
 This is a placeholder desc for this template.
-
 ### Begin autogeneration
-Automatically generated API documentation will be placed in this location. This uses Swagger and Widdershins to auto generate basic docs with no owner input.
+---
+title: REST API v1.0.0
+language_tabs: []
+language_clients: []
+toc_footers: []
+includes: []
+search: true
+highlight_theme: darkula
+headingLevel: 0
 
-The script, `auto-swagger.js` (found in .github/utilities/) runs on each commit.
+---
+
+<!-- Generator: Widdershins v4.0.1 -->
+
+<h1 id="rest-api">REST API v1.0.0</h1>
+
+> Scroll down for example requests and responses.
+
+does shit
+
+Base URLs:
+
+* <a href="http://localhost:3000/">http://localhost:3000/</a>
+
+ License: undefined
+
+<h1 id="rest-api-default">Default</h1>
+
+## post__
+
+`POST /`
+
+<h3 id="post__-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
 
 ### End autogeneration
+
 
 
 
